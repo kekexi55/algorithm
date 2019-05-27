@@ -30,4 +30,5 @@ public class StreamTest {
         System.out.println(Splitter.on(",").trimResults().splitToList(content));
 
     }
+
 }
