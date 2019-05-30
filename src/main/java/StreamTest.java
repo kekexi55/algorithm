@@ -2,6 +2,7 @@ import com.google.common.base.Splitter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,13 @@ public class StreamTest {
         System.out.println(test2List.stream().map(e -> e.toUpperCase()).collect(Collectors.toList()));
         String content  = "ksks,slkslk,sllsksm,llsl";
         System.out.println(Splitter.on(",").trimResults().splitToList(content));
+        List<Item> list =  new ArrayList<>();
+        list.add(new Item(11));
+        list.add(new Item(93));
+        list.add(new Item(198));
+        list.add(new Item(1));
+        Collections.sort(list);
+        System.out.println(list);
 
     }
 
