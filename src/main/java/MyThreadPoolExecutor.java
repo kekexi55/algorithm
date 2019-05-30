@@ -61,25 +61,32 @@ public class MyThreadPoolExecutor {
 
         @Override
         public void run() {
-            Runnable theTask = task;
-            while(true){
-                if(theTask !=  null){
-                    theTask.run();
-                }else{
-                    try {
-                        theTask = (Runnable) taskQueue.take();
-                        if(theTask == null){
-                            break;
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                theTask  = null;
+            while(task != null ||(task = getTask()) != null){
+                task.run();
             }
-
         }
 
+    }
+
+    /**
+     * 获取task
+     * @return
+     */
+    private Runnable getTask() {
+        if(state != 0){
+            return null;
+        }
+        Runnable task  = null;
+        try {
+            if(workerSet.size() > minSize){
+                task = taskQueue.poll(keepAlivedTime,timeUnit);
+            }else{
+                task = taskQueue.take();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return task;
     }
 
     /**
@@ -127,7 +134,6 @@ public class MyThreadPoolExecutor {
     private void addWorker(Runnable task) {
         Worker worker = new Worker(task);
         new Thread(worker).start();
-//        workerSet.add(worker);
     }
 
     /**
