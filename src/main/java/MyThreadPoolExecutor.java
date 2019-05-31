@@ -1,6 +1,7 @@
 import java.util.HashSet;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /***
  *
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
  * 简易的线程池
  */
 public class MyThreadPoolExecutor {
+
     /**
      * 最少线程数
      */
@@ -38,6 +40,10 @@ public class MyThreadPoolExecutor {
      */
     private static final int MAX_SIZE =  16;
     /**
+     * worker的数量
+     */
+    private static final AtomicInteger workerSize = new AtomicInteger();
+    /**
      * 线程池的状态  0 ：RUNNING
      *             1 ：TERMINATED
      *             2 ：STOPPED
@@ -61,8 +67,14 @@ public class MyThreadPoolExecutor {
 
         @Override
         public void run() {
-            while(task != null ||(task = getTask()) != null){
-                task.run();
+            try {
+                while(task != null ||(task = getTask()) != null){
+                    task.run();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+
             }
         }
 
@@ -72,19 +84,15 @@ public class MyThreadPoolExecutor {
      * 获取task
      * @return
      */
-    private Runnable getTask() {
+    private Runnable getTask() throws InterruptedException {
         if(state != 0){
             return null;
         }
         Runnable task  = null;
-        try {
-            if(workerSet.size() > minSize){
-                task = taskQueue.poll(keepAlivedTime,timeUnit);
-            }else{
-                task = taskQueue.take();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(workerSet.size() > minSize){
+            task = taskQueue.poll(keepAlivedTime,timeUnit);
+        }else{
+            task = taskQueue.take();
         }
         return task;
     }
@@ -98,16 +106,18 @@ public class MyThreadPoolExecutor {
         if(state != 0){
             return;
         }
-        if(workerSet.size() <= minSize){
+        if(workerSize.get() <= minSize){
             addWorker(task);
+            workerSize.getAndAdd(1);
             return;
         }
-        if(taskQueue.size() <= MAX_SIZE){
+        if(workerSize.get() <= maxSize && taskQueue.size() <= MAX_SIZE){
             taskQueue.put(task);
             return;
         }
-        if(workerSet.size() <= maxSize){
+        if(workerSize.get() <= maxSize){
             addWorker(task);
+            workerSize.getAndAdd(1);
         }
     }
 
@@ -116,6 +126,12 @@ public class MyThreadPoolExecutor {
      */
     public void shutdown(){
         state = 1;
+        if(taskQueue.size() == 0){
+            for (Thread thread : workerSet) {
+                thread.interrupt();
+            }
+        }
+
     }
 
     /**
@@ -127,6 +143,7 @@ public class MyThreadPoolExecutor {
             thread.interrupt();
         }
         workerSet = null;
+        taskQueue = null;
 
     }
 
