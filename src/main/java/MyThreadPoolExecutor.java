@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +27,7 @@ public class MyThreadPoolExecutor {
     /**
      * 线程保持时间
      */
-    private long keepAlivedTime;
+    private long keepAliveTime;
     /**
      * 时间单位
      */
@@ -34,7 +35,7 @@ public class MyThreadPoolExecutor {
     /**
      * 保存现有线程
      */
-    private HashSet<Thread> workerSet;
+    private HashSet<Thread> workerSet = new HashSet<>(8);
     /**
      * 阻塞队列的最大值
      */
@@ -48,13 +49,13 @@ public class MyThreadPoolExecutor {
      *             1 ：TERMINATED
      *             2 ：STOPPED
      */
-    private int state;
+    private int state = 0;
 
-    public MyThreadPoolExecutor(int minSize, int maxSize, BlockingQueue queue, long keepAlivedTime, TimeUnit timeUnit) {
+    public MyThreadPoolExecutor(int minSize, int maxSize, BlockingQueue queue, long keepAliveTime, TimeUnit timeUnit) {
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.taskQueue = queue;
-        this.keepAlivedTime = keepAlivedTime;
+        this.keepAliveTime = keepAliveTime;
         this.timeUnit = timeUnit;
     }
 
@@ -67,15 +68,20 @@ public class MyThreadPoolExecutor {
 
         @Override
         public void run() {
-            try {
-                while(task != null ||(task = getTask()) != null){
-                    task.run();
+            while(true){
+                try {
+                    if (task == null && (task = getTask()) == null){
+                        break;
+                    }else{
+                        task.run();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    task = null;
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-
             }
+
         }
 
     }
@@ -90,7 +96,7 @@ public class MyThreadPoolExecutor {
         }
         Runnable task  = null;
         if(workerSet.size() > minSize){
-            task = taskQueue.poll(keepAlivedTime,timeUnit);
+            task = taskQueue.poll(keepAliveTime,timeUnit);
         }else{
             task = taskQueue.take();
         }
@@ -101,7 +107,7 @@ public class MyThreadPoolExecutor {
      * 提交任务
      * @param task
      */
-    public void submit(Runnable task) throws InterruptedException {
+    public void submit(Runnable task) {
         //不是运行状态
         if(state != 0){
             return;
@@ -109,13 +115,16 @@ public class MyThreadPoolExecutor {
         if(workerSize.get() <= minSize){
             addWorker(task);
             workerSize.getAndAdd(1);
+            System.out.println("小于核心线程数");
             return;
         }
-        if(workerSize.get() <= maxSize && taskQueue.size() <= MAX_SIZE){
-            taskQueue.put(task);
+        if(taskQueue.remainingCapacity() >1){
+            System.out.println("核心线程数已满，开始往队列中放任务");
+            taskQueue.offer(task);
             return;
         }
         if(workerSize.get() <= maxSize){
+            System.out.println("队列已满，增加线程数");
             addWorker(task);
             workerSize.getAndAdd(1);
         }
@@ -144,7 +153,6 @@ public class MyThreadPoolExecutor {
         }
         workerSet = null;
         taskQueue = null;
-
     }
 
     private void addWorker(Runnable task) {
@@ -158,6 +166,43 @@ public class MyThreadPoolExecutor {
      * @param args
      */
     public static void main(String[] args) {
+        MyThreadPoolExecutor executor  = new MyThreadPoolExecutor(1,3,new ArrayBlockingQueue(8),10,TimeUnit.SECONDS);
+        executor.submit(()->{
+            System.out.println("111");
+        });
+        executor.submit(()->{
+            System.out.println("222");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        executor.submit(()->{
+            System.out.println("333");
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        executor.submit(()->{
+            System.out.println("444");
+        });
+        executor.submit(()->{
+            System.out.println("555");
+            try {
+                Thread.sleep(800);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        executor.submit(()->{
+            System.out.println("666");
+        });
+        executor.submit(()->{
+            System.out.println("777");
+        });
 
     }
 
