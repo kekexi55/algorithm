@@ -52,7 +52,7 @@ public class MyThreadPoolExecutor {
         this.timeUnit = timeUnit;
     }
 
-    private class Worker implements Runnable{
+    private class Worker extends Thread{
         private Runnable task;
 
         private Worker(Runnable task) {
@@ -116,7 +116,6 @@ public class MyThreadPoolExecutor {
      */
     public void shutdown(){
         state = 1;
-
     }
 
     /**
@@ -133,7 +132,8 @@ public class MyThreadPoolExecutor {
 
     private void addWorker(Runnable task) {
         Worker worker = new Worker(task);
-        new Thread(worker).start();
+        workerSet.add(worker);
+        worker.start();
     }
 
     /**
