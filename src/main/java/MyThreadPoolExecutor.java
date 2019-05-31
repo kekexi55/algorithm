@@ -43,7 +43,7 @@ public class MyThreadPoolExecutor {
     /**
      * worker的数量
      */
-    private static final AtomicInteger workerSize = new AtomicInteger();
+    private static final AtomicInteger workerSize = new AtomicInteger(1);
     /**
      * 线程池的状态  0 ：RUNNING
      *             1 ：TERMINATED
@@ -81,7 +81,7 @@ public class MyThreadPoolExecutor {
                     task = null;
                 }
             }
-
+            workerSize.getAndDecrement();
         }
 
     }
@@ -166,7 +166,7 @@ public class MyThreadPoolExecutor {
      * @param args
      */
     public static void main(String[] args) {
-        MyThreadPoolExecutor executor  = new MyThreadPoolExecutor(1,3,new ArrayBlockingQueue(8),10,TimeUnit.SECONDS);
+        MyThreadPoolExecutor executor  = new MyThreadPoolExecutor(1,3,new ArrayBlockingQueue(2),10,TimeUnit.SECONDS);
         executor.submit(()->{
             System.out.println("111");
         });
