@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class CTLTest {
     public static void main(String[] args) {
-        CountDownLatch countDownLatch = new CountDownLatch(2);
+        CountDownLatch countDownLatch = new CountDownLatch(3);
         Thread thread1 =  new Thread(new MyThread(countDownLatch));
         Thread thread2 =  new Thread(new MyThread(countDownLatch));
         thread1.start();
