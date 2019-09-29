@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /***
  *
  * @author zhengchunguang
@@ -25,5 +27,14 @@ public class ListNode {
 
     public void setNext(ListNode next) {
         this.next = next;
+    }
+
+    public void traverse(){
+        ListNode next = this.next;
+        System.out.println(this.value);
+        while (Objects.nonNull(next)){
+            System.out.println(next.value);
+            next = next.next;
+        }
     }
 }
