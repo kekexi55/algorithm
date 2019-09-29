@@ -36,26 +36,25 @@ public class ReverseList {
         return p;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ListNode p1 = new ListNode(10);
         ListNode p2 = new ListNode(30);
         ListNode p3 = new ListNode(40);
         ListNode p4 = new ListNode(5);
         ListNode p5 = new ListNode(35);
-        p5.next = null;
         p4.next = p5;
         p3.next = p4;
         p2.next = p3;
-        p1.next = p2;
-        p4.traverse();
+        p5.next = null;
+
 
         System.out.println("分割线================");
 
-        ReverseList reverseList = new ReverseList();
-        ListNode result = reverseList.reverse(p4);
+//        ReverseList reverseList = new ReverseList();
+//        ListNode result = reverseList.reverse(p4);
 
-        result.traverse();
-
+//        result.traverse();
+        System.out.println(IsCircleList.isCircle(p2));
 
 
     }

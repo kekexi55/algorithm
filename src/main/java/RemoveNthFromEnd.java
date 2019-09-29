@@ -21,7 +21,6 @@ public class RemoveNthFromEnd {
             p = p.next;
             q = q.next;
         }
-//        q = q.next;
         return q;
     }
 
