@@ -5,27 +5,34 @@
  * 快速排序
  */
 public class FastSort {
-    public static void sort(int[]array,int q,int r){
-        if(q>=r) return;
-        int p = parition(array,q,r);
-        sort(array,q,p-1);
-        sort(array,p+1,r);
+
+    public static void quickSort(int[] array,int p, int r){
+        if(p >= r){
+            return;
+        }
+        int i = partition(array,p,r);
+        quickSort(array,p,i-1);
+        quickSort(array,i+1,r);
     }
 
-    private static int parition(int[] array, int q, int r) {
-        int pvoit = array[r];
-        int i = q;
-        for(int j = q;j< r;j++){
-            if(array[j] <= pvoit){
+    /**
+     * 选择最后的数据
+     */
+    private static int partition(int[] array, int p, int r) {
+        int last = array[r];
+        int size = r - p;
+        int i = p;
+        for (int j = p; j < size; j++) {
+            if(array[j] <= last){
                 int tmp = array[i];
                 array[i] = array[j];
                 array[j] = tmp;
                 i++;
             }
         }
-        int tmpp = array[i];
+        int t = array[i];
         array[i] = array[r];
-        array[r] = tmpp;
+        array[r] = t;
         return i;
     }
 
@@ -35,7 +42,7 @@ public class FastSort {
         for (int i : array) {
             System.out.println(i);
         }
-        sort(array,0,array.length-1);
+        quickSort(array,0,array.length-1);
         System.out.println("after");
         for (int i : array) {
             System.out.println(i);
