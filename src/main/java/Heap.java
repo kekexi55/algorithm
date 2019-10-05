@@ -12,10 +12,12 @@ public class Heap {
         this.n = capacity;
         count = 0;
         a = new int[capacity+1];
+        String str;
     }
 
     /**
      * 在堆中插入数据
+     *
      * @param value
      */
     public void insert(int value){
