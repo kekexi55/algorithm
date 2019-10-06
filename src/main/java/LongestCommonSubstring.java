@@ -23,7 +23,7 @@ public class LongestCommonSubstring {
             char ca = str2.charAt(i);
             for (int j = 0; j < length1; j++) {
                 if(ca == str1.charAt(j)){
-                    //第一行
+                    //第一列
                     if(j == 0){
                         currentLine[j] = 1;
                     }else{
