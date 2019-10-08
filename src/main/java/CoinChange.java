@@ -10,7 +10,31 @@ public class CoinChange {
      */
     public static int[]coins = new int[]{1,2,5};
 
-    public int num(int amount){
-        return 0;
+    public static int num(int amount){
+        int ans[] = new int[amount+1];
+        for (int coin : coins) {
+            if(coin > amount){
+                continue;
+            }
+            ans[coin] = 1;
+        }
+        for (int i = 1; i <= amount; i++) {
+            if(ans[i] != 0){
+                continue;
+            }
+            int min = Integer.MAX_VALUE;
+            for (int coin : coins) {
+                if(i - coin < 0 || ans[i-coin] == 0){
+                    continue;
+                }
+                min = Math.min(min,ans[i-coin] + 1);
+            }
+            ans[i] = min == Integer.MAX_VALUE?0:min;
+        }
+        return ans[amount];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(num(3));
     }
 }
