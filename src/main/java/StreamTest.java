@@ -36,6 +36,8 @@ public class StreamTest {
         Collections.sort(list);
         System.out.println(list);
 
+
+
     }
 
 }
