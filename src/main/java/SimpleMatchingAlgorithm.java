@@ -44,11 +44,38 @@ public class SimpleMatchingAlgorithm {
 
     }
 
+    /**
+     * 第二种匹配算法
+     * @param str1
+     * @param str2
+     */
+    public static void match2(String str1,String str2){
+        int length1 = str1.length();
+        int length2 = str2.length();
+        int i = 0;
+        int j = 0;
+        while(i<length1&&j<length2){
+            if(str1.charAt(i) == str2.charAt(j)){
+                i++;
+                j++;
+            }else{
+                i = i - j + 1;
+                j = 0;
+            }
+        }
+        if(j==length2){
+            System.out.println(i-j);
+        }else{
+            System.out.println(-1);
+        }
+
+    }
+
     private static int isMatch(int j, char theChar,String str) {
          return theChar == str.charAt(j)?j:-1;
     }
 
     public static void main(String[] args) {
-        match("1234562wer","345755");
+        match2("1234562wer","62wer");
     }
 }
