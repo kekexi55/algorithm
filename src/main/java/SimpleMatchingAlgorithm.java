@@ -59,11 +59,11 @@ public class SimpleMatchingAlgorithm {
                 i++;
                 j++;
             }else{
-                i = i - j + 1;
+                i++;
                 j = 0;
             }
         }
-        if(j==length2){
+        if(j == length2){
             System.out.println(i-j);
         }else{
             System.out.println(-1);
@@ -76,6 +76,6 @@ public class SimpleMatchingAlgorithm {
     }
 
     public static void main(String[] args) {
-        match2("1234562wer","62wer");
+        match2("1234562wer","3456");
     }
 }
