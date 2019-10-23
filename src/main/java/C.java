@@ -12,5 +12,7 @@ public class C {
 
     public static void main(String[] args) {
         C c = new C(new B());
+        A a = new B();
+        System.out.println(c.a);
     }
 }
