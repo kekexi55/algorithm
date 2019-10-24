@@ -12,7 +12,9 @@ public class C {
 
     public static void main(String[] args) {
         C c = new C(new B());
-        A a = new B();
-        System.out.println(c.a);
+        B b = (B)c.a;
+        System.out.println(c.a instanceof A);
+        System.out.println(c.a instanceof B);
+        System.out.println(c.a.getClass().toGenericString());
     }
 }
