@@ -68,8 +68,9 @@ public class SimpleMatchingAlgorithm {
         }else{
             System.out.println(-1);
         }
-
     }
+
+
 
     private static int isMatch(int j, char theChar,String str) {
          return theChar == str.charAt(j)?j:-1;
