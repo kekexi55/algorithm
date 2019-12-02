@@ -1,3 +1,9 @@
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.concurrent.Phaser;
 
 /***
@@ -8,17 +14,28 @@ import java.util.concurrent.Phaser;
  */
 public class PhaserTest {
     public static void main(String[] args) {
-        int count = 20;
-        Phaser phaser = new Phaser(count);
-//        phaser.register();
-        for (int i = 0; i < count; i++) {
-            InnerThread innerThread = new InnerThread(phaser);
-            Thread thread = new Thread(innerThread);
-            thread.start();
-        }
+//        int count = 20;
+//        Phaser phaser = new Phaser(count);
+////        phaser.register();
+//        for (int i = 0; i < count; i++) {
+//            InnerThread innerThread = new InnerThread(phaser);
+//            Thread thread = new Thread(innerThread);
+//            thread.start();
+//        }
 //        phaser.arriveAndAwaitAdvance();
         System.out.println("all is done");
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
+        LocalDateTime max = localDateTime.with(LocalTime.MAX);
+        DateTimeFormatter  dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String strDateTime = dateTimeFormatter.format(max);
+        System.out.println(strDateTime);
+        LocalDateTime localDateTime1 = LocalDateTime.parse(strDateTime,dateTimeFormatter);
+        long timeTillis = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        System.out.println(timeTillis);
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        System.out.println(date);
     }
+
     private static class InnerThread implements Runnable{
         Phaser phaser;
 
