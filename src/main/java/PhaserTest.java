@@ -14,15 +14,6 @@ import java.util.concurrent.Phaser;
  */
 public class PhaserTest {
     public static void main(String[] args) {
-//        int count = 20;
-//        Phaser phaser = new Phaser(count);
-////        phaser.register();
-//        for (int i = 0; i < count; i++) {
-//            InnerThread innerThread = new InnerThread(phaser);
-//            Thread thread = new Thread(innerThread);
-//            thread.start();
-//        }
-//        phaser.arriveAndAwaitAdvance();
         System.out.println("all is done");
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
         LocalDateTime max = localDateTime.with(LocalTime.MAX);
@@ -34,6 +25,7 @@ public class PhaserTest {
         System.out.println(timeTillis);
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         System.out.println(date);
+
     }
 
     private static class InnerThread implements Runnable{
