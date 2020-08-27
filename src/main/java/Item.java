@@ -38,39 +38,39 @@ public class Item{
      * @param args
      */
     public static void main(String[] args) {
-//        FileInputStream is = null;
-//        try {
-//            File fout = new File("/Users/zhengchunguang/Desktop/local/fanti.txt"); // 创建文件输出对象
-//            FileWriter out = new FileWriter(fout); // 创建文件字符流 写 对象，传递文件对象
-//            is = new FileInputStream("/Users/zhengchunguang/Desktop/local/done.xlsx");
-//            XSSFWorkbook workbook =  new XSSFWorkbook(is);
-//            //获取第一个sheet
-//            Sheet sheet = workbook.getSheetAt(0);
-//            //第0行是表名，忽略，从第二行开始读取
-//            for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
-//                String string =  "INSERT INTO i18n_resource (`biz`,`key`,`val`,`remark`) " +
-//                        " VALUES ('fish',";
-//                Row row = sheet.getRow(rowNum);
-//                Cell keyCell = row.getCell(0);
-//                Cell valueCell = row.getCell(1);
-//                Cell fanCell = row.getCell(2);
-//                String key = keyCell.getStringCellValue();
-//                String value = valueCell.getStringCellValue();
-//                String fan = fanCell.getStringCellValue();
-//                string =  string + "'" + key +"'" +",";
-//                string =  string + "'" + fan +"'" +",";
-//                string =  string + "'" + value +"'" +");";
-//                out.write(string);
-//                out.write("\n");
-//            }
-//            out.flush();
-//            out.close();
-//
-//        } catch (IOException e) {
-//
-//        } finally {
-//            IOUtils.closeQuietly(is);
-//        }
+        FileInputStream is = null;
+        try {
+            File fout = new File("/Users/zhengchunguang/Desktop/local/fanti.txt"); // 创建文件输出对象
+            FileWriter out = new FileWriter(fout); // 创建文件字符流 写 对象，传递文件对象
+            is = new FileInputStream("/Users/zhengchunguang/Desktop/local/done.xlsx");
+            XSSFWorkbook workbook =  new XSSFWorkbook(is);
+            //获取第一个sheet
+            Sheet sheet = workbook.getSheetAt(0);
+            //第0行是表名，忽略，从第二行开始读取
+            for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+                String string =  "INSERT INTO i18n_resource (`biz`,`key`,`val`,`remark`) " +
+                        " VALUES ('fish',";
+                Row row = sheet.getRow(rowNum);
+                Cell keyCell = row.getCell(0);
+                Cell valueCell = row.getCell(1);
+                Cell fanCell = row.getCell(2);
+                String key = keyCell.getStringCellValue();
+                String value = valueCell.getStringCellValue();
+                String fan = fanCell.getStringCellValue();
+                string =  string + "'" + key +"'" +",";
+                string =  string + "'" + fan +"'" +",";
+                string =  string + "'" + value +"'" +");";
+                out.write(string);
+                out.write("\n");
+            }
+            out.flush();
+            out.close();
+
+        } catch (IOException e) {
+
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
         int[] array =new int[]{1,2,3,4,5,6,7};
         rotate(array,3);
         for (int i : array) {
@@ -158,6 +158,13 @@ public class Item{
         }
 
         return climbStairs(n-1)+climbStairs(n-2);
+    }
+
+    public int minDistance(String word1, String word2) {
+        int size1 = word1.length();
+        int size2 = word2.length();
+        int [][] dp = new int[size1][size2];
+        return 0;
     }
 
 
