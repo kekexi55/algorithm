@@ -28,11 +28,11 @@
 //        System.out.println(test2List.stream().map(e -> e.toUpperCase()).collect(Collectors.toList()));
 //        String content  = "ksks,slkslk,sllsksm,llsl";
 ////        System.out.println(Splitter.on(",").trimResults().splitToList(content));
-//        List<Item> list =  new ArrayList<>();
-//        list.add(new Item(11));
-//        list.add(new Item(93));
-//        list.add(new Item(198));
-//        list.add(new Item(1));
+//        List<Localization> list =  new ArrayList<>();
+//        list.add(new Localization(11));
+//        list.add(new Localization(93));
+//        list.add(new Localization(198));
+//        list.add(new Localization(1));
 //        Collections.sort(list);
 //        System.out.println(list);
 //

@@ -18,16 +18,16 @@ import java.util.List;
  * @author zhengchunguang
  * @date 2019-05-30 15:05
  */
-public class Item{
+public class Localization {
 
     private Integer weight;
 
-    public Item(Integer weight) {
+    public Localization(Integer weight) {
         this.weight = weight;
     }
 
 //    @Override
-//    public int compareTo(Item o) {
+//    public int compareTo(Localization o) {
 //        return this.weight>o.weight? 1:-1;
 //    }
 
@@ -40,9 +40,9 @@ public class Item{
     public static void main(String[] args) {
         FileInputStream is = null;
         try {
-            File fout = new File("/Users/zhengchunguang/Desktop/local/fanti.txt"); // 创建文件输出对象
+            File fout = new File("/Users/zhengchunguang/Desktop/japan/done.txt"); // 创建文件输出对象
             FileWriter out = new FileWriter(fout); // 创建文件字符流 写 对象，传递文件对象
-            is = new FileInputStream("/Users/zhengchunguang/Desktop/local/done.xlsx");
+            is = new FileInputStream("/Users/zhengchunguang/Desktop/japan/done.xlsx");
             XSSFWorkbook workbook =  new XSSFWorkbook(is);
             //获取第一个sheet
             Sheet sheet = workbook.getSheetAt(0);
