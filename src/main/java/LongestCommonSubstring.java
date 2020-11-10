@@ -42,6 +42,13 @@ public class LongestCommonSubstring {
     }
 
     public static void main(String[] args) {
-        System.out.println(max("ablaooallal","lsooalsoss"));
+//        System.out.println(max("ablaooallal","lsooalsoss"));
+        long shootBulletNum  = 0;
+        for (int i = 0; i < 10000000; i++) {
+            double shrinkSys = (5* Math.sin((double) shootBulletNum/(double)36) + 4)/100;
+            System.out.println(shootBulletNum+"，"+shrinkSys);
+            shootBulletNum++;
+        }
+
     }
 }

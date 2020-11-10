@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.*;
 
 /***
  *
@@ -38,6 +39,22 @@ public class Localization {
      * @param args
      */
     public static void main(String[] args) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future future = executorService.submit(new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+                return null;
+            }
+
+        });
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
         FileInputStream is = null;
         try {
             File fout = new File("/Users/zhengchunguang/Desktop/japan/done.txt"); // 创建文件输出对象
