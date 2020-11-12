@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 /***
  *
  * @author zhengchunguang
@@ -16,5 +19,10 @@ public class BinarySearchTree {
         private Node right;
     }
 
+    public static void main(String[] args) {
+        Set<String> set = new HashSet<>();
+        set.add("991919");
+        System.out.println(set.contains("991919"));
+    }
 
 }
