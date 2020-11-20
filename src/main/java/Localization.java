@@ -57,9 +57,9 @@ public class Localization {
 
         FileInputStream is = null;
         try {
-            File fout = new File("/Users/zhengchunguang/Desktop/japan/done.txt"); // 创建文件输出对象
+            File fout = new File("/Users/zhengchunguang/Desktop/fish/japan/done.txt"); // 创建文件输出对象
             FileWriter out = new FileWriter(fout); // 创建文件字符流 写 对象，传递文件对象
-            is = new FileInputStream("/Users/zhengchunguang/Desktop/japan/done.xlsx");
+            is = new FileInputStream("/Users/zhengchunguang/Desktop/fish/japan/done.xlsx");
             XSSFWorkbook workbook =  new XSSFWorkbook(is);
             //获取第一个sheet
             Sheet sheet = workbook.getSheetAt(0);

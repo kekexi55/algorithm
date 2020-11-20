@@ -1,5 +1,9 @@
 import com.google.common.base.Strings;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /***
  *
  * @author zhengchunguang
@@ -77,6 +81,18 @@ public class SimpleMatchingAlgorithm {
     }
 
     public static void main(String[] args) {
-        match2("1234562wer","3456");
+        List<String> strings = new ArrayList<>();
+        strings.add("a");
+        strings.add("b");
+        strings.add("c");
+        strings.add("d");
+
+        Iterator<String> iterator = strings.iterator();
+        while (iterator.hasNext()){
+            String next = iterator.next();
+            iterator.remove();
+        }
+
+        System.out.println(strings);
     }
 }
