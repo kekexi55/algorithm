@@ -1,8 +1,12 @@
 import com.google.common.base.Strings;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /***
  *
@@ -80,19 +84,45 @@ public class SimpleMatchingAlgorithm {
          return theChar == str.charAt(j)?j:-1;
     }
 
-    public static void main(String[] args) {
-        List<String> strings = new ArrayList<>();
-        strings.add("a");
-        strings.add("b");
-        strings.add("c");
-        strings.add("d");
+//    public static void main(String[] args) {
+//        List<String> strings = new ArrayList<>();
+//        strings.add("a");
+//        strings.add("b");
+//        strings.add("c");
+//        strings.add("d");
+//
+//        Iterator<String> iterator = strings.iterator();
+//        while (iterator.hasNext()){
+//            String next = iterator.next();
+//            iterator.remove();
+//        }
+//
+//        System.out.println(strings);
+//    }
 
-        Iterator<String> iterator = strings.iterator();
-        while (iterator.hasNext()){
-            String next = iterator.next();
-            iterator.remove();
+    /**
+     *
+     * @param param  0 本周  -1 上周
+     * @return
+     */
+    public static String getWeekNum(int param) {
+        LocalDate date = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int week = date.get(weekFields.weekOfWeekBasedYear());
+        if(param == -1){
+            week--;
         }
+        return  String.valueOf(week);
+    }
 
-        System.out.println(strings);
+    public static void main(String[] args) {
+
+        String start ="20210103";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate startDate = LocalDate.parse(start, dateTimeFormatter);
+
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int week = startDate.get(weekFields.weekOfWeekBasedYear());
+        System.out.println(String.valueOf(week));
     }
 }
