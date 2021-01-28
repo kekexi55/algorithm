@@ -1,11 +1,7 @@
 import com.google.common.base.Strings;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 /***
@@ -84,21 +80,6 @@ public class SimpleMatchingAlgorithm {
          return theChar == str.charAt(j)?j:-1;
     }
 
-//    public static void main(String[] args) {
-//        List<String> strings = new ArrayList<>();
-//        strings.add("a");
-//        strings.add("b");
-//        strings.add("c");
-//        strings.add("d");
-//
-//        Iterator<String> iterator = strings.iterator();
-//        while (iterator.hasNext()){
-//            String next = iterator.next();
-//            iterator.remove();
-//        }
-//
-//        System.out.println(strings);
-//    }
 
     /**
      *
@@ -117,12 +98,9 @@ public class SimpleMatchingAlgorithm {
 
     public static void main(String[] args) {
 
-        String start ="20210103";
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate startDate = LocalDate.parse(start, dateTimeFormatter);
-
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int week = startDate.get(weekFields.weekOfWeekBasedYear());
-        System.out.println(String.valueOf(week));
+        int cardTreasureMarker = 3;
+        int boxSn  = 2;
+        cardTreasureMarker |= (int)Math.pow(2, boxSn - 1);
+        System.out.println(cardTreasureMarker);
     }
 }
