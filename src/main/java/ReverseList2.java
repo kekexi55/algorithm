@@ -29,6 +29,9 @@ public class ReverseList2 {
         return p;
     }
 
+
+
+
     public static void main(String[] args) {
         ListNode p1 = new ListNode(10);
         ListNode p2 = new ListNode(30);
