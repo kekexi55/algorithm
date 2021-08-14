@@ -8,54 +8,50 @@ import java.util.Objects;
  */
 public class ReverseList {
     public static ListNode reverse(ListNode head){
-        if(Objects.isNull(head)){
-            return null;
-        }
         //一个节点
-        if(Objects.isNull(head.next)){
+        if(head == null || head.next == null){
             return head;
         }
         //两个节点
-        if(Objects.isNull(head.next.next)){
+        if(head.next.next == null){
             ListNode result = head.next;
-            head.next.next = head;
             head.next = null;
+            result.next = head;
             return result;
         }
-
-        ListNode p = head.next;
-        ListNode q = p.next;
+        //三个以上节点
+        ListNode p =  head.next;
+        ListNode q =  p.next;
         head.next = null;
-        p.next = head;
-        while (Objects.nonNull(q)){
-           ListNode next = q.next;
-           q.next = p;
-           p = q;
-           q = next;
+        p.next =  head;
+        while(null != q){
+            ListNode next = q.next;
+            q.next =  p;
+            p = q;
+            q = next;
         }
         return p;
-    }
-
-    public static void main(String[] args) throws Exception {
-        ListNode p1 = new ListNode(10);
-        ListNode p2 = new ListNode(30);
-        ListNode p3 = new ListNode(40);
-        ListNode p4 = new ListNode(5);
-        ListNode p5 = new ListNode(35);
-        p4.next = p5;
-        p3.next = p4;
-        p2.next = p3;
-        p5.next = null;
-
-
-        System.out.println("分割线================");
-
-//        ReverseList reverseList = new ReverseList();
-//        ListNode result = reverseList.reverse(p4);
-
-//        result.traverse();
-        System.out.println(IsCircleList.isCircle(p2));
 
 
     }
+
+
+    public static void main(String[] args) {
+        ListNode listNode1 = new ListNode(1);
+        ListNode listNode2 = new ListNode(2);
+        ListNode listNode3 = new ListNode(3);
+        ListNode listNode4 = new ListNode(4);
+        ListNode listNode5 = new ListNode(5);
+        listNode5.next = null;
+        listNode4.next = listNode5;
+        listNode3.next = listNode4;
+        listNode2.next = listNode3;
+        listNode1.next=  listNode2;
+        System.out.println(reverse(listNode1).value);
+    }
+
+
+
+
+
 }
