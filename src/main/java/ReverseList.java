@@ -7,31 +7,29 @@ import java.util.Objects;
  * 反转单链表
  */
 public class ReverseList {
-    public static ListNode reverse(ListNode head){
-        //一个节点
-        if(head == null || head.next == null){
-            return head;
+
+    public static ListNode reverse(ListNode listNode){
+        if(null == listNode || null == listNode.next){
+            return listNode;
         }
-        //两个节点
-        if(head.next.next == null){
-            ListNode result = head.next;
-            head.next = null;
-            result.next = head;
-            return result;
+        if(null == listNode.next.next){
+            ListNode newHead = listNode.next;
+            listNode.next = null;
+            newHead.next = listNode;
+            return newHead;
         }
-        //三个以上节点
-        ListNode p =  head.next;
-        ListNode q =  p.next;
-        head.next = null;
-        p.next =  head;
+
+        ListNode  p = listNode.next;
+        ListNode q = p.next;
+        listNode.next = null;
+        p.next =  listNode;
         while(null != q){
-            ListNode next = q.next;
-            q.next =  p;
-            p = q;
+            ListNode next =  q.next;
+            q.next = p;
+            p =  q;
             q = next;
         }
         return p;
-
 
     }
 
