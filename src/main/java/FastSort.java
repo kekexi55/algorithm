@@ -7,34 +7,36 @@
 public class FastSort {
 
     public static void quickSort(int[] array,int p, int r){
+        if(null == array || array.length == 0){
+            return;
+        }
         if(p >= r){
             return;
         }
         int i = partition(array,p,r);
         quickSort(array,p,i-1);
-        quickSort(array,i+1,r);
+        quickSort(array,i+ 1,r);
     }
 
-    /**
-     * 选择最后的数据
-     */
     private static int partition(int[] array, int p, int r) {
-        int last = array[r];
-        int size = r - p;
+        int last =  array[r];
         int i = p;
-        for (int j = p; j < size; j++) {
-            if(array[j] <= last){
-                int tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
+        for (int j = p; j<=r;j ++){
+            if(array[j] < last){
+                exchange(array,j,i);
                 i++;
             }
         }
-        int t = array[i];
-        array[i] = array[r];
-        array[r] = t;
+        exchange(array,i,r);
         return i;
     }
+
+    private static void exchange(int[] array, int j, int i) {
+        int tmp =  array[j];
+        array[j] = array[i];
+        array[i] = tmp;
+    }
+
 
     public static void main(String[] args) {
 
